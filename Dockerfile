@@ -6,7 +6,7 @@ RUN apk add --no-cache git
 
 COPY / .
 
-RUN  npm i
+RUN npm i
 
 EXPOSE 8080
 

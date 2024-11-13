@@ -6,7 +6,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -23,6 +22,7 @@
     "typescript-eslint": "^8.14.0"
   },
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "firebase-admin": "^13.0.0"
   }
 }

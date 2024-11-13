@@ -3,7 +3,7 @@
 substitutions:
   _PROJECT_ID: "test-app-cbb2d" # Specify this in the trigger as well for easy changes
   _SERVICE_NAME: "backend-service-2"
-  _ZONE: "europe-west8-b" # Change this to your VM's zone
+  _ZONE: "europe-west4-b" # Change this to your VM's zone
   _VM_INSTANCE: "instance-20241113-081229" # Your VM instance name
 
 options:

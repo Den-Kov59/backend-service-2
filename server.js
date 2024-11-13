@@ -11,15 +11,15 @@ admin.initializeApp({
 const server = dgram.createSocket('udp4');
 
 server.on('message', (msg, rinfo) => {
-  console.log(`Received message: ${msg} from ${rinfo.address}:${rinfo.port}`);
+  console.log(`Received message: ${msg.message} from ${rinfo.address}:${rinfo.port}`);
   
   // Handle FCM notification
   const message = {
-    notification: {
+    data: {
       title: 'New Update',
-      body: msg.toString(),
+      body: msg.message.toString(),
     },
-    topic: 'Ttopic',
+    token: msg.token
   };
 
   admin.messaging().send(message)

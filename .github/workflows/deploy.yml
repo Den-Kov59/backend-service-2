@@ -14,14 +14,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Step 2: Set up Google Cloud SDK
+    # Step 2: Set up Google Cloud SDK and Authenticate
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
         service_account_key: ${{ secrets.GCLOUD_SA_KEY }}
         project_id: ${{ secrets.GCLOUD_PROJECT }}
 
-    # Step 3: Copy files to the VM
+    # Step 3: Copy files to VM instance
     - name: Copy files to VM instance
       run: |
         gcloud compute scp --recurse . ${{ secrets.GCLOUD_VM_NAME }}:/path/on/vm --zone ${{ secrets.GCLOUD_ZONE }}
@@ -32,5 +32,5 @@ jobs:
         gcloud compute ssh ${{ secrets.GCLOUD_VM_NAME }} --zone ${{ secrets.GCLOUD_ZONE }} --command "
         cd /path/on/vm &&
         npm install &&
-        pm2 restart app || pm2 start server.js --name app
+        pm2 restart app || pm2 start your-app-file.js --name app
         "

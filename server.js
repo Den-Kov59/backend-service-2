@@ -2,7 +2,7 @@
 const dgram = require('dgram');
 const admin = require('firebase-admin');
 
-const serviceAccount = require("../serviceAccountKey.json");
+const serviceAccount = require("../test-app-cbb2d-firebase-adminsdk-ri055-34e896fb14.json");
 // Initialize Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

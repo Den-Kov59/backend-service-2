@@ -29,7 +29,7 @@ jobs:
     # Step 4: Copy files to VM instance
     - name: Copy files to VM instance
       run: |
-        gcloud compute scp --recurse . ${{ secrets.GCLOUD_VM_NAME }}:/path/on/vm --zone ${{ secrets.GCLOUD_ZONE }}
+        gcloud compute scp --recurse ./ ${{ secrets.GCLOUD_VM_NAME }}:/path/on/vm --zone ${{ secrets.GCLOUD_ZONE }}
 
     # Step 5: Connect to VM and start/restart the app
     - name: SSH into VM and deploy

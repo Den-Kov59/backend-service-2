@@ -18,11 +18,12 @@ server.on('message', (msg, rinfo) => {
   const message = {
     data: {
       title: 'New Update',
-      body: parsedMessage.message.toString(),
+      body: parsedMessage.message,
     },
     token: parsedMessage.token
   };
-
+  console.log('messi',message);
+  
   admin.messaging().send(message)
     .then(response => {
       console.log('Successfully sent message:', response);

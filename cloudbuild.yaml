@@ -1,0 +1,29 @@
+# cloudbuild.yaml
+
+substitutions:
+  _PROJECT_ID: "test-app-cbb2d" # Specify this in the trigger as well for easy changes
+  _SERVICE_NAME: "backend-service-2"
+  _ZONE: "europe-west8-b" # Change this to your VM's zone
+  _VM_INSTANCE: "instance-20241113-081229" # Your VM instance name
+
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/${_PROJECT_ID}/${_SERVICE_NAME}', '.']
+
+  # Step 2: Push the Docker image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/${_PROJECT_ID}/${_SERVICE_NAME}']
+
+  # Step 3: Deploy the Docker image to a Compute Engine VM using SSH
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud compute ssh ${_VM_INSTANCE} --project=${_PROJECT_ID} --zone=${_ZONE} --command="
+        docker pull gcr.io/${_PROJECT_ID}/${_SERVICE_NAME}:latest &&
+        docker stop ${_SERVICE_NAME} || true &&
+        docker rm ${_SERVICE_NAME} || true &&
+        docker run -d --name ${_SERVICE_NAME} -p 80:3000 gcr.io/${_PROJECT_ID}/${_SERVICE_NAME}:latest
+        "

@@ -6,6 +6,9 @@ substitutions:
   _ZONE: "europe-west8-b" # Change this to your VM's zone
   _VM_INSTANCE: "instance-20241113-081229" # Your VM instance name
 
+options:
+  logging: CLOUD_LOGGING_ONLY
+  
 steps:
   # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'

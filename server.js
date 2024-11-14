@@ -13,12 +13,12 @@ const server = dgram.createSocket('udp4');
 server.on('message', (msg, rinfo) => {
   try {
   const parsedMessage = JSON.parse(msg);
-  console.log(`Received message: ${parsedMessage.message} from ${rinfo.address}:${rinfo.port}`);
+  console.log(`Received message: ${parsedMessage.title + parsedMessage.message} from ${rinfo.address}:${rinfo.port}`);
   
   // Handle FCM notification
   const message = {
     data: {
-      title: 'New Update',
+      title: parsedMessage.title,
       body: parsedMessage.message,
     },
     token: parsedMessage.token

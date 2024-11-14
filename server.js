@@ -11,6 +11,7 @@ admin.initializeApp({
 const server = dgram.createSocket('udp4');
 
 server.on('message', (msg, rinfo) => {
+  try {
   const parsedMessage = JSON.parse(msg);
   console.log(`Received message: ${parsedMessage.message} from ${rinfo.address}:${rinfo.port}`);
   
@@ -31,6 +32,9 @@ server.on('message', (msg, rinfo) => {
     .catch(error => {
       console.log('Error sending message:', error);
     });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 server.bind(process.env.port || 8080);
